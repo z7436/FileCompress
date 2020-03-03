@@ -42,13 +42,13 @@ public:
 	* 创建Huffman树，invalid是一个无效的权值，用来对 v 做筛选
 	*/
 	void Create(const std::vector<W>& v, const W& invalid) {
-		// 1.构建森林
+		// 1.构建森林，将所有的树用一个小堆管理起来便于找出权值小的两个树
 		std::priority_queue<Node*, std::vector<Node*>, Cmp<W>> q;
 		for (auto e : v) {
 			if (e == invalid) continue; // 权值为无效权值，不需要添加
 			q.push(new Node(e));
 		}
-		// 2.森林中树大于两个，取出权值最小的两个树，以他们为左右子树创建新树，权值为左右子树之和
+		// 2.森林中树大于等于两个，取出权值最小的两个树，以他们为左右子树创建新树，新树的权值为左右子树之和
 		int qLen = q.size();
 		while (qLen > 1) {
 			Node* left = q.top();

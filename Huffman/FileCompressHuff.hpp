@@ -7,11 +7,11 @@
 
 
 /*
-* 一个字节能表示的范围0-255，用这个结构体，记录256个字符的信息
+* 一个字节能表示的范围0-255，用这个结构体，记录每个字符的信息
 * 字符 + 出现次数 + Huffman编码
 */
 struct CharInfo {
-	unsigned char _ch;
+	unsigned char _ch; // 字符
 	size_t _count; // 字符出现次数
 	std::string _strCode; // 字符编码
 	CharInfo(size_t count = 0) :_count(count) {}
@@ -23,6 +23,9 @@ struct CharInfo {
 
 class FileCompressHuff {
 public:
+	/*
+	* 构造函数，_fileInfo数组初始化，_count每个字符出现的此时都初始化为0（0作为一个无效值）
+	*/
 	FileCompressHuff() :_fileInfo(std::vector<CharInfo>(256)) {
 		for (int i = 0; i < 256; ++i) {
 			_fileInfo[i]._ch = i;
@@ -201,5 +204,5 @@ private:
 		}
 	}
 private:
-	std::vector<CharInfo> _fileInfo; // 共256个字符，统计256个字符的信息
+	std::vector<CharInfo> _fileInfo; // 共256个字符，将256个字符的信息用vector组织在一起
 };
